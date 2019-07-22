@@ -1,6 +1,8 @@
 # justauth-spring-boot-starter
 
 > Spring Boot 集成 JustAuth 的最佳实践~
+>
+> JustAuth 脚手架
 
 ## 快速开始
 
