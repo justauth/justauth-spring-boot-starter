@@ -1,0 +1,132 @@
+{
+  "properties": [
+    {
+      "name": "justauth.type",
+      "type": "java.util.Map<me.zhyd.oauth.config.AuthSource,me.zhyd.oauth.config.AuthConfig>",
+      "description": "JustAuth 配置.",
+      "sourceType": "com.xkcoding.justauth.properties.JustAuthProperties"
+    }
+  ],
+  "hints": [
+    {
+      "name": "justauth.type.keys",
+      "providers": [
+        {
+          "name": "handle-as",
+          "values": [
+            {
+              "value": "GITHUB",
+              "description": "GITHUB."
+            },
+            {
+              "value": "WEIBO",
+              "description": "WEIBO."
+            },
+            {
+              "value": "GITEE",
+              "description": "GITEE."
+            },
+            {
+              "value": "DINGTALK",
+              "description": "DINGTALK."
+            },
+            {
+              "value": "BAIDU",
+              "description": "BAIDU."
+            },
+            {
+              "value": "CSDN",
+              "description": "CSDN."
+            },
+            {
+              "value": "CODING",
+              "description": "CODING."
+            },
+            {
+              "value": "TENCENT_CLOUD",
+              "description": "TENCENT_CLOUD."
+            },
+            {
+              "value": "OSCHINA",
+              "description": "OSCHINA."
+            },
+            {
+              "value": "ALIPAY",
+              "description": "ALIPAY."
+            },
+            {
+              "value": "QQ",
+              "description": "QQ."
+            },
+            {
+              "value": "WECHAT",
+              "description": "WECHAT."
+            },
+            {
+              "value": "TAOBAO",
+              "description": "TAOBAO."
+            },
+            {
+              "value": "GOOGLE",
+              "description": "GOOGLE."
+            },
+            {
+              "value": "FACEBOOK",
+              "description": "FACEBOOK."
+            },
+            {
+              "value": "DOUYIN",
+              "description": "DOUYIN."
+            },
+            {
+              "value": "LINKEDIN",
+              "description": "LINKEDIN."
+            },
+            {
+              "value": "MICROSOFT",
+              "description": "MICROSOFT."
+            },
+            {
+              "value": "MI",
+              "description": "MI."
+            },
+            {
+              "value": "TOUTIAO",
+              "description": "TOUTIAO."
+            },
+            {
+              "value": "TEAMBITION",
+              "description": "TEAMBITION."
+            },
+            {
+              "value": "RENREN",
+              "description": "RENREN."
+            },
+            {
+              "value": "PINTEREST",
+              "description": "PINTEREST."
+            },
+            {
+              "value": "STACK_OVERFLOW",
+              "description": "STACK_OVERFLOW."
+            }
+          ],
+          "parameters": {
+            "target": "me.zhyd.oauth.config.AuthSource"
+          }
+        }
+      ]
+    },
+    {
+      "name": "justauth.type.values",
+      "providers": [
+        {
+          "name": "handle-as",
+          "parameters": {
+            "target": "me.zhyd.oauth.config.AuthConfig"
+          }
+        }
+      ]
+    }
+  ]
+}
