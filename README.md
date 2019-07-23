@@ -12,38 +12,13 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 
 ## 快速开始
 
-- 因为暂时没有发布至中央仓库，因此需要体验的童鞋暂时使用我的私服玩儿吧~ 在 `pom.xml` 中添加以下内容
-
-```xml
-<repositories>
-  <!--阿里云私服-->
-  <repository>
-    <id>aliyun</id>
-    <name>aliyun</name>
-    <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-  </repository>
-  <!--xkcoding 私服-->
-  <repository>
-    <id>xkcoding-nexus</id>
-    <name>xkcoding nexus</name>
-    <url>https://nexus.xkcoding.com/repository/maven-public/</url>
-    <releases>
-      <enabled>true</enabled>
-    </releases>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-</repositories>
-```
-
 - 引用依赖
 
 ```xml
 <dependency>
   <groupId>com.xkcoding</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
 </dependency>
 ```
 
