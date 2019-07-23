@@ -4,6 +4,9 @@
 >
 > JustAuth 脚手架
 
+当前最新版本 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.xkcoding/justauth-spring-boot-starter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.xkcoding/justauth-spring-boot-starter)
+[![Build Status](https://travis-ci.org/xkcoding/scaffold.svg?branch=master)](https://travis-ci.org/xkcoding/justauth-spring-boot-starter)
+
 ## Demo
 
 懒得看文档的，可以直接看demo
