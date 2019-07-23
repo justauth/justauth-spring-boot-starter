@@ -4,6 +4,12 @@
 >
 > JustAuth 脚手架
 
+## Demo
+
+懒得看文档的，可以直接看demo
+
+https://github.com/xkcoding/justauth-spring-boot-starter-demo
+
 ## 快速开始
 
 - 因为暂时没有发布至中央仓库，因此需要体验的童鞋暂时使用我的私服玩儿吧~ 在 `pom.xml` 中添加以下内容
