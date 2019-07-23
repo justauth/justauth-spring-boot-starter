@@ -2,8 +2,10 @@ package com.xkcoding.justauth;
 
 import com.xkcoding.justauth.properties.JustAuthProperties;
 import lombok.RequiredArgsConstructor;
+import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.request.*;
+import me.zhyd.oauth.utils.AuthState;
 
 /**
  * <p>
@@ -24,55 +26,68 @@ public class AuthRequestFactory {
      * @return {@link AuthRequest}
      */
     public AuthRequest get(AuthSource source) {
+        return get(source, null);
+    }
+
+    /**
+     * 返回AuthRequest对象
+     *
+     * @param source {@link AuthSource}
+     * @param state  {@link AuthSource}
+     * @return {@link AuthRequest}
+     */
+    public AuthRequest get(AuthSource source, Object state) {
+        AuthConfig config = properties.getType().get(source);
+        config.setState(state == null ? AuthState.create(source) : AuthState.create(source, state));
         switch (source) {
             case GITHUB:
-                return new AuthGithubRequest(properties.getType().get(source));
+                return new AuthGithubRequest(config);
             case WEIBO:
-                return new AuthWeiboRequest(properties.getType().get(source));
+                return new AuthWeiboRequest(config);
             case GITEE:
-                return new AuthGiteeRequest(properties.getType().get(source));
+                return new AuthGiteeRequest(config);
             case DINGTALK:
-                return new AuthDingTalkRequest(properties.getType().get(source));
+                return new AuthDingTalkRequest(config);
             case BAIDU:
-                return new AuthBaiduRequest(properties.getType().get(source));
+                return new AuthBaiduRequest(config);
             case CSDN:
-                return new AuthCsdnRequest(properties.getType().get(source));
+                return new AuthCsdnRequest(config);
             case CODING:
-                return new AuthCodingRequest(properties.getType().get(source));
+                return new AuthCodingRequest(config);
             case TENCENT_CLOUD:
-                return new AuthTencentCloudRequest(properties.getType().get(source));
+                return new AuthTencentCloudRequest(config);
             case OSCHINA:
-                return new AuthOschinaRequest(properties.getType().get(source));
+                return new AuthOschinaRequest(config);
             case ALIPAY:
-                return new AuthAlipayRequest(properties.getType().get(source));
+                return new AuthAlipayRequest(config);
             case QQ:
-                return new AuthQqRequest(properties.getType().get(source));
+                return new AuthQqRequest(config);
             case WECHAT:
-                return new AuthWeChatRequest(properties.getType().get(source));
+                return new AuthWeChatRequest(config);
             case TAOBAO:
-                return new AuthTaobaoRequest(properties.getType().get(source));
+                return new AuthTaobaoRequest(config);
             case GOOGLE:
-                return new AuthGoogleRequest(properties.getType().get(source));
+                return new AuthGoogleRequest(config);
             case FACEBOOK:
-                return new AuthFacebookRequest(properties.getType().get(source));
+                return new AuthFacebookRequest(config);
             case DOUYIN:
-                return new AuthDouyinRequest(properties.getType().get(source));
+                return new AuthDouyinRequest(config);
             case LINKEDIN:
-                return new AuthLinkedinRequest(properties.getType().get(source));
+                return new AuthLinkedinRequest(config);
             case MICROSOFT:
-                return new AuthMicrosoftRequest(properties.getType().get(source));
+                return new AuthMicrosoftRequest(config);
             case MI:
-                return new AuthMiRequest(properties.getType().get(source));
+                return new AuthMiRequest(config);
             case TOUTIAO:
-                return new AuthToutiaoRequest(properties.getType().get(source));
+                return new AuthToutiaoRequest(config);
             case TEAMBITION:
-                return new AuthTeambitionRequest(properties.getType().get(source));
+                return new AuthTeambitionRequest(config);
             case RENREN:
-                return new AuthRenrenRequest(properties.getType().get(source));
+                return new AuthRenrenRequest(config);
             case PINTEREST:
-                return new AuthPinterestRequest(properties.getType().get(source));
+                return new AuthPinterestRequest(config);
             case STACK_OVERFLOW:
-                return new AuthStackOverflowRequest(properties.getType().get(source));
+                return new AuthStackOverflowRequest(config);
             default:
                 return null;
         }
