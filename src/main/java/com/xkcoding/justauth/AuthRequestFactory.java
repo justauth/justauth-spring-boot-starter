@@ -4,8 +4,9 @@ import com.xkcoding.justauth.properties.JustAuthProperties;
 import lombok.RequiredArgsConstructor;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthResponseStatus;
+import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.*;
-import me.zhyd.oauth.utils.AuthState;
 
 /**
  * <p>
@@ -26,19 +27,7 @@ public class AuthRequestFactory {
      * @return {@link AuthRequest}
      */
     public AuthRequest get(AuthSource source) {
-        return get(source, null);
-    }
-
-    /**
-     * 返回AuthRequest对象
-     *
-     * @param source {@link AuthSource}
-     * @param state  {@link AuthSource}
-     * @return {@link AuthRequest}
-     */
-    public AuthRequest get(AuthSource source, Object state) {
         AuthConfig config = properties.getType().get(source);
-        config.setState(state == null ? AuthState.create(source) : AuthState.create(source, state));
         switch (source) {
             case GITHUB:
                 return new AuthGithubRequest(config);
@@ -89,7 +78,7 @@ public class AuthRequestFactory {
             case STACK_OVERFLOW:
                 return new AuthStackOverflowRequest(config);
             default:
-                return null;
+                throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
     }
 }

@@ -22,7 +22,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 <dependency>
   <groupId>com.xkcoding</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
@@ -41,31 +41,7 @@ justauth:
 - 然后就开始玩耍吧~
 
 ```java
-package com.xkcoding.justauthspringbootstarterdemo;
-
-import com.xkcoding.justauth.AuthRequestFactory;
-import lombok.RequiredArgsConstructor;
-import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.request.AuthRequest;
-import me.zhyd.oauth.utils.AuthState;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-/**
- * <p>
- * 测试 Controller
- * </p>
- *
- * @author yangkai.shen
- * @date Created in 2019-07-22 11:17
- */
+@Slf4j
 @RestController
 @RequestMapping("/oauth")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -75,15 +51,14 @@ public class TestController {
     @GetMapping("/login/qq")
     public void login(HttpServletResponse response) throws IOException {
         AuthRequest authRequest = factory.get(AuthSource.QQ);
-        response.sendRedirect(authRequest.authorize());
+        response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
     }
 
     @RequestMapping("/qq/callback")
     public AuthResponse login(AuthCallback callback) {
-        AuthRequest authRequest = factory.get(AuthSource.QQ);
-        AuthResponse response = authRequest.login(callback);
-        // 移除校验通过的state
-        AuthState.delete(AuthSource.QQ);
+        AuthRequest authRequest2 = factory.get(AuthSource.QQ);
+        AuthResponse response = authRequest2.login(callback);
+        log.info("【response】= {}", JSONUtil.toJsonStr(response));
         return response;
     }
 }
