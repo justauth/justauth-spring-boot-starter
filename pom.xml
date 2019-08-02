@@ -6,7 +6,7 @@
 
   <groupId>com.xkcoding</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3-SNAPSHOT</version>
 
   <name>justauth-spring-boot-starter</name>
   <url>https://github.com/xkcoding/justauth-spring-boot-starter</url>
@@ -50,7 +50,7 @@
     <!--SpringBoot版本-->
     <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
     <!--JustAuth版本-->
-    <justauth.version>1.9.5</justauth.version>
+    <justauth.version>1.9.6-SNAPSHOT</justauth.version>
   </properties>
 
   <dependencies>
