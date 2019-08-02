@@ -9,6 +9,9 @@ import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  * AuthRequest工厂类
@@ -21,6 +24,15 @@ import me.zhyd.oauth.request.*;
 public class AuthRequestFactory {
     private final JustAuthProperties properties;
     private final AuthStateCache authStateCache;
+
+    /**
+     * 返回当前Oauth列表
+     *
+     * @return Oauth列表
+     */
+    public List<String> oauthList() {
+        return properties.getType().keySet().stream().map(Enum::name).collect(Collectors.toList());
+    }
 
     /**
      * 返回AuthRequest对象
