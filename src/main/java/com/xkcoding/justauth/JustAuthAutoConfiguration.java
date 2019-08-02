@@ -3,7 +3,7 @@ package com.xkcoding.justauth;
 import com.xkcoding.justauth.properties.JustAuthProperties;
 import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +28,7 @@ public class JustAuthAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnBean(AuthStateCache.class)
+    @ConditionalOnMissingBean
     public AuthStateCache authStateCache() {
         return AuthDefaultStateCache.INSTANCE;
     }
