@@ -6,7 +6,7 @@
 
   <groupId>com.xkcoding</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>justauth-spring-boot-starter</name>
   <url>https://github.com/xkcoding/justauth-spring-boot-starter</url>
@@ -50,7 +50,7 @@
     <!--SpringBoot版本-->
     <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
     <!--JustAuth版本-->
-    <justauth.version>1.9.6-SNAPSHOT</justauth.version>
+    <justauth.version>1.10.0</justauth.version>
   </properties>
 
   <dependencies>
@@ -62,6 +62,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
+      <optional>true</optional>
     </dependency>
     <!--https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor-->
     <dependency>

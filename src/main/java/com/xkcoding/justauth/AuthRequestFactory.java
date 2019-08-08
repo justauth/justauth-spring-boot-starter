@@ -91,6 +91,8 @@ public class AuthRequestFactory {
                 return new AuthPinterestRequest(config, authStateCache);
             case STACK_OVERFLOW:
                 return new AuthStackOverflowRequest(config, authStateCache);
+            case HUAWEI:
+                return new AuthHuaweiRequest(config, authStateCache);
             case WECHAT_ENTERPRISE:
                 return new AuthWeChatEnterpriseRequest(config, authStateCache);
             default:
