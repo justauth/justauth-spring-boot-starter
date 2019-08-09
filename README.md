@@ -14,6 +14,8 @@
 
 https://github.com/xkcoding/justauth-spring-boot-starter-demo
 
+完整版 demo：https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social
+
 ## 快速开始
 
 - 引用依赖
