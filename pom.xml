@@ -261,6 +261,35 @@
         </snapshotRepository>
       </distributionManagement>
     </profile>
+    <profile>
+      <id>github</id>
+      <build>
+        <plugins>
+          <!-- GPG -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <distributionManagement>
+        <!-- 发布到GitHub仓库 -->
+        <repository>
+          <id>github-xkcoding</id>
+          <name>GitHub Xkcoding Apache Maven Packages</name>
+          <url>https://maven.pkg.github.com/xkcoding/justauth-spring-boot-starter</url>
+        </repository>
+      </distributionManagement>
+    </profile>
   </profiles>
 
 </project>
