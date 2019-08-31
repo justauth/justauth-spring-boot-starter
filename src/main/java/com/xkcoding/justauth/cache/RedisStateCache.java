@@ -17,11 +17,11 @@
 
 package com.xkcoding.justauth.cache;
 
+import com.xkcoding.justauth.properties.CacheProperties;
 import lombok.RequiredArgsConstructor;
 import me.zhyd.oauth.cache.AuthStateCache;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class RedisStateCache implements AuthStateCache {
     private final RedisTemplate<String, String> redisTemplate;
-    private final Duration timeout;
+    private final CacheProperties cacheProperties;
 
     /**
      * 存入缓存
@@ -45,7 +45,7 @@ public class RedisStateCache implements AuthStateCache {
      */
     @Override
     public void cache(String key, String value) {
-        this.cache(key, value, timeout.toMillis());
+        this.cache(key, value, cacheProperties.getTimeout().toMillis());
     }
 
     /**
@@ -57,7 +57,7 @@ public class RedisStateCache implements AuthStateCache {
      */
     @Override
     public void cache(String key, String value, long timeout) {
-        redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(cacheProperties.getPrefix() + key, value, timeout, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -68,7 +68,7 @@ public class RedisStateCache implements AuthStateCache {
      */
     @Override
     public String get(String key) {
-        return redisTemplate.opsForValue().get(key);
+        return redisTemplate.opsForValue().get(cacheProperties.getPrefix() + key);
     }
 
     /**
@@ -79,7 +79,7 @@ public class RedisStateCache implements AuthStateCache {
      */
     @Override
     public boolean containsKey(String key) {
-        Long expire = redisTemplate.getExpire(key, TimeUnit.MILLISECONDS);
+        Long expire = redisTemplate.getExpire(cacheProperties.getPrefix() + key, TimeUnit.MILLISECONDS);
         if (expire == null) {
             expire = 0L;
         }

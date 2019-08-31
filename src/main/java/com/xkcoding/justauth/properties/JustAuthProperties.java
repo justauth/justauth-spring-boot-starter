@@ -22,6 +22,7 @@ import lombok.Setter;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +52,7 @@ public class JustAuthProperties {
     /**
      * 缓存配置类
      */
+    @NestedConfigurationProperty
     private CacheProperties cache;
 
 }
