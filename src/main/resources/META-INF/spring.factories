@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.xkcoding.justauth.JustAuthAutoConfiguration,\
-  com.xkcoding.justauth.JustAuthRedisCacheConfig
+  com.xkcoding.justauth.JustAuthAutoConfiguration

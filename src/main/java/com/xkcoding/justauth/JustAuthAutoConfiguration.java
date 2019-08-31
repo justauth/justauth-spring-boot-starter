@@ -17,19 +17,14 @@
 
 package com.xkcoding.justauth;
 
-import com.xkcoding.justauth.cache.RedisStateCache;
-import com.xkcoding.justauth.properties.CacheProperties;
 import com.xkcoding.justauth.properties.JustAuthProperties;
 import lombok.extern.slf4j.Slf4j;
-import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.context.annotation.Import;
 
 /**
  * <p>
@@ -43,8 +38,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 @EnableConfigurationProperties(JustAuthProperties.class)
 public class JustAuthAutoConfiguration {
-    @Autowired(required = false)
-    private RedisTemplate<String, String> justAuthRedisCacheTemplate;
 
     @Bean
     @ConditionalOnProperty(prefix = "justauth", value = "enabled", havingValue = "true", matchIfMissing = true)
@@ -52,20 +45,10 @@ public class JustAuthAutoConfiguration {
         return new AuthRequestFactory(properties, authStateCache);
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthStateCache authStateCache(JustAuthProperties justAuthProperties) {
-        if (CacheProperties.CacheType.REDIS == justAuthProperties.getCache().getType()) {
-            log.debug("JustAuth 使用 Redis 缓存存储 state 数据");
-            assert justAuthRedisCacheTemplate != null;
-            return new RedisStateCache(justAuthRedisCacheTemplate, justAuthProperties.getCache());
-        } else if (CacheProperties.CacheType.CUSTOM == justAuthProperties.getCache().getType()) {
-            log.debug("JustAuth 使用 自定义缓存存储 state 数据，请自行实现 me.zhyd.oauth.cache.AuthStateCache");
-            return null;
-        } else {
-            log.debug("JustAuth 使用 默认缓存存储 state 数据");
-            return AuthDefaultStateCache.INSTANCE;
-        }
+    @Configuration
+    @Import({JustAuthStateCacheConfiguration.Default.class, JustAuthStateCacheConfiguration.Redis.class, JustAuthStateCacheConfiguration.Custom.class})
+    protected static class AuthStateCacheAutoConfiguration {
+
     }
 
 }
