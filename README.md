@@ -242,8 +242,6 @@ public class AuthStateConfiguration {
 
 ## 附录
 
-### 1. 配置
-
 `justauth` 配置列表
 
 | 属性名             | 类型                                                         | 默认值 | 可选项     | 描述              |
@@ -266,30 +264,3 @@ public class AuthStateConfiguration {
 | `justauth.cache.type`    | `com.xkcoding.justauth.properties.CacheProperties.CacheType` | default           | default/redis/custom | 缓存类型，default使用JustAuth默认的缓存实现，redis使用默认的redis缓存实现，custom用户自定义缓存实现 |
 | `justauth.cache.prefix`  | `string`                                                     | JUSTAUTH::STATE:: |                      | 缓存前缀，目前只对redis缓存生效，默认 JUSTAUTH::STATE::      |
 | `justauth.cache.timeout` | `java.time.Duration`                                         | 3分钟             |                      | 超时时长，目前只对redis缓存生效，默认3分钟                   |
-
-### 2. 私服
-
-如果想体验快照版本，需要在 `pom.xml` 文件里添加如下配置
-
-```xml
-<repositories>
-    <!--阿里云私服-->
-    <repository>
-      <id>aliyun</id>
-      <name>aliyun</name>
-      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-    </repository>
-    <!--xkcoding 私服-->
-    <repository>
-      <id>xkcoding-nexus</id>
-      <name>xkcoding nexus</name>
-      <url>https://nexus.xkcoding.com/repository/maven-public/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-```
