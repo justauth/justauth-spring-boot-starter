@@ -40,9 +40,9 @@ public class CacheProperties {
     private CacheType type = CacheType.DEFAULT;
 
     /**
-     * 缓存前缀，只在配置外部缓存时生效
+     * 缓存前缀，只在配置外部缓存时生效，默认 JUSTAUTH::STATE::
      */
-    private String prefix = "";
+    private String prefix = "JUSTAUTH::STATE::";
 
     /**
      * 超时时长，默认3分钟

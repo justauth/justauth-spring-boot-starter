@@ -58,7 +58,7 @@ public class JustAuthAutoConfiguration {
         if (CacheProperties.CacheType.REDIS == justAuthProperties.getCache().getType()) {
             log.debug("JustAuth 使用 Redis 缓存存储 state 数据");
             assert justAuthRedisCacheTemplate != null;
-            return new RedisStateCache(justAuthRedisCacheTemplate, justAuthProperties.getCache().getTimeout());
+            return new RedisStateCache(justAuthRedisCacheTemplate, justAuthProperties.getCache());
         } else if (CacheProperties.CacheType.CUSTOM == justAuthProperties.getCache().getType()) {
             log.debug("JustAuth 使用 自定义缓存存储 state 数据，请自行实现 me.zhyd.oauth.cache.AuthStateCache");
             return null;
