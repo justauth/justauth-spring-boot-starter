@@ -40,12 +40,12 @@ public class CacheProperties {
     private CacheType type = CacheType.DEFAULT;
 
     /**
-     * 缓存前缀，只在配置外部缓存时生效，默认 JUSTAUTH::STATE::
+     * 缓存前缀，目前只对redis缓存生效，默认 JUSTAUTH::STATE::
      */
     private String prefix = "JUSTAUTH::STATE::";
 
     /**
-     * 超时时长，默认3分钟
+     * 超时时长，目前只对redis缓存生效，默认3分钟
      */
     private Duration timeout = Duration.ofMinutes(3);
 
