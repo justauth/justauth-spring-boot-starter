@@ -19,38 +19,53 @@ package com.xkcoding.justauth.properties;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.ToString;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Duration;
 
 /**
  * <p>
- * JustAuth自动装配配置类
+ * 缓存配置类
  * </p>
  *
  * @author yangkai.shen
- * @date Created in 2019-07-22 10:59
+ * @date Created in 2019/8/31 10:18
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "justauth")
-public class JustAuthProperties {
+public class CacheProperties {
     /**
-     * 是否启用 JustAuth
+     * 缓存类型
      */
-    private boolean enabled;
+    private CacheType type = CacheType.DEFAULT;
 
     /**
-     * JustAuth 配置
+     * 缓存前缀，只在配置外部缓存时生效
      */
-    private Map<AuthSource, AuthConfig> type = new HashMap<>();
+    private String prefix = "";
 
     /**
-     * 缓存配置类
+     * 超时时长，默认3分钟
      */
-    private CacheProperties cache;
+    private Duration timeout = Duration.ofMinutes(3);
 
+    /**
+     * 缓存类型
+     */
+    @Getter
+    @ToString
+    public enum CacheType {
+        /**
+         * 使用JustAuth内置的缓存
+         */
+        DEFAULT,
+        /**
+         * 使用Redis缓存
+         */
+        REDIS,
+        /**
+         * 自定义缓存
+         */
+        CUSTOM;
+    }
 }
