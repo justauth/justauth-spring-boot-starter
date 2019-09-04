@@ -282,11 +282,11 @@ public class AuthStateConfiguration {
                 <name>aliyun</name>
                 <url>http://maven.aliyun.com/nexus/content/groups/public</url>
             </repository>
-            <!--xkcoding 私服-->
+            <!--中央仓库-->
             <repository>
-                <id>xkcoding-nexus</id>
+                <id>snapshots-repo</id>
                 <name>xkcoding nexus</name>
-                <url>https://nexus.xkcoding.com/repository/maven-public/</url>
+                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
                 <releases>
                     <enabled>true</enabled>
                 </releases>
