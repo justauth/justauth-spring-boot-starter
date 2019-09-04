@@ -30,7 +30,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 <dependency>
   <groupId>com.xkcoding</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
