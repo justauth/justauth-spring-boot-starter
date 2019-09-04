@@ -112,6 +112,10 @@ public class AuthRequestFactory {
                 return new AuthHuaweiRequest(config, authStateCache);
             case WECHAT_ENTERPRISE:
                 return new AuthWeChatEnterpriseRequest(config, authStateCache);
+            case GITLAB:
+                return new AuthGitlabRequest(config, authStateCache);
+            case KUJIALE:
+                return new AuthKujialeRequest(config, authStateCache);
             default:
                 throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
