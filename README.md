@@ -269,36 +269,28 @@ public class AuthStateConfiguration {
 
 ### 2. SNAPSHOT版本
 
-如果需要体验快照版本，可以在你的maven目录找到 `settings.xml`进行如下配置：
+如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
 
 ```xml
-<profiles>
-    <profile>
-        <id>justauth-test</id>
-        <repositories>
-            <!--阿里云私服-->
-            <repository>
-                <id>aliyun</id>
-                <name>aliyun</name>
-                <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-            </repository>
-            <!--中央仓库-->
-            <repository>
-                <id>snapshots-repo</id>
-                <name>xkcoding nexus</name>
-                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-                <releases>
-                    <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>true</enabled>
-                </snapshots>
-            </repository>
-        </repositories>
-    </profile>
-</profiles>
-<activeProfiles>
-    <activeProfile>justauth-test</activeProfile>
-</activeProfiles>
+<repositories>
+    <!--阿里云私服-->
+    <repository>
+      <id>aliyun</id>
+      <name>aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </repository>
+    <!--中央仓库-->
+    <repository>
+      <id>xkcoding-nexus</id>
+      <name>xkcoding nexus</name>
+      <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+</repositories>
 ```
 
