@@ -260,14 +260,14 @@
       <distributionManagement>
         <!-- 发布版私服仓库 -->
         <repository>
-          <id>releases</id>
-          <name>Nexus Release Repository</name>
+          <id>xkcoding-nexus</id>
+          <name>xkcoding Nexus Release Repository</name>
           <url>https://nexus.xkcoding.com/repository/maven-releases/</url>
         </repository>
         <!-- 快照版私服仓库 -->
         <snapshotRepository>
-          <id>snapshots</id>
-          <name>Nexus Snapshot Repository</name>
+          <id>xkcoding-nexus</id>
+          <name>xkcoding Nexus Snapshot Repository</name>
           <url>https://nexus.xkcoding.com/repository/maven-snapshots/</url>
         </snapshotRepository>
       </distributionManagement>
@@ -296,7 +296,7 @@
         <!-- 发布到GitHub仓库 -->
         <repository>
           <id>github-xkcoding</id>
-          <name>GitHub Xkcoding Apache Maven Packages</name>
+          <name>xkcoding</name>
           <url>https://maven.pkg.github.com/xkcoding/justauth-spring-boot-starter</url>
         </repository>
       </distributionManagement>
