@@ -15,42 +15,50 @@
  *
  */
 
-package com.xkcoding.justauth.properties;
+package com.xkcoding.justauth.autoconfigure;
 
 import lombok.Getter;
 import lombok.Setter;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.config.AuthDefaultSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * <p>
- * 扩展配置
+ * JustAuth自动装配配置类
  * </p>
  *
  * @author yangkai.shen
- * @date Created in 2019/10/9 11:21
+ * @date Created in 2019-07-22 10:59
  */
 @Getter
 @Setter
-public class ExtendProperties {
+@ConfigurationProperties(prefix = "justauth")
+public class JustAuthProperties {
     /**
-     * 枚举类全路径
+     * 是否启用 JustAuth
      */
-    private Class<? extends AuthSource> enumClass;
+    private boolean enabled;
 
-    private Map<String, ExtendRequestConfig> config = new HashMap<>();
+    /**
+     * JustAuth 默认配置
+     */
+    private Map<AuthDefaultSource, AuthConfig> type = new HashMap<>();
 
-    @Getter
-    @Setter
-    public static class ExtendRequestConfig extends AuthConfig{
-        /**
-         * 请求对应全路径
-         */
-        private Class<? extends AuthRequest> requestClass;
-    }
+    /**
+     * JustAuth 自定义配置
+     */
+    @NestedConfigurationProperty
+    private ExtendProperties extend;
+
+    /**
+     * 缓存配置类
+     */
+    @NestedConfigurationProperty
+    private CacheProperties cache = new CacheProperties();
 
 }

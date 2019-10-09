@@ -4,7 +4,7 @@
       "name": "justauth.type",
       "type": "java.util.Map<me.zhyd.oauth.config.AuthSource,me.zhyd.oauth.config.AuthConfig>",
       "description": "JustAuth 配置.",
-      "sourceType": "com.xkcoding.justauth.properties.JustAuthProperties"
+      "sourceType": "com.xkcoding.justauth.autoconfigure.JustAuthProperties"
     }
   ],
   "hints": [

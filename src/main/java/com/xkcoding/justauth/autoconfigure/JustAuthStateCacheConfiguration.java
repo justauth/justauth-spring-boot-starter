@@ -15,10 +15,9 @@
  *
  */
 
-package com.xkcoding.justauth;
+package com.xkcoding.justauth.autoconfigure;
 
-import com.xkcoding.justauth.cache.RedisStateCache;
-import com.xkcoding.justauth.properties.JustAuthProperties;
+import com.xkcoding.justauth.support.cache.RedisStateCache;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;

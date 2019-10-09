@@ -15,9 +15,9 @@
  *
  */
 
-package com.xkcoding.justauth.cache;
+package com.xkcoding.justauth.support.cache;
 
-import com.xkcoding.justauth.properties.CacheProperties;
+import com.xkcoding.justauth.autoconfigure.CacheProperties;
 import lombok.RequiredArgsConstructor;
 import me.zhyd.oauth.cache.AuthStateCache;
 import org.springframework.data.redis.core.RedisTemplate;

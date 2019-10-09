@@ -15,9 +15,9 @@
  *
  */
 
-package com.xkcoding.justauth;
+package com.xkcoding.justauth.autoconfigure;
 
-import com.xkcoding.justauth.properties.JustAuthProperties;
+import com.xkcoding.justauth.AuthRequestFactory;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.cache.AuthStateCache;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

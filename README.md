@@ -30,7 +30,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 <dependency>
   <groupId>com.xkcoding</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -65,25 +65,18 @@ public class TestController {
 
     @GetMapping("/login/{type}")
     public void login(@PathVariable String type, HttpServletResponse response) throws IOException {
-        AuthRequest authRequest = factory.get(getAuthSource(type));
+        AuthRequest authRequest = factory.get(type);
         response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
     }
 
     @RequestMapping("/{type}/callback")
     public AuthResponse login(@PathVariable String type, AuthCallback callback) {
-        AuthRequest authRequest = factory.get(getAuthSource(type));
+        AuthRequest authRequest = factory.get(type);
         AuthResponse response = authRequest.login(callback);
         log.info("【response】= {}", JSONUtil.toJsonStr(response));
         return response;
     }
 
-    private AuthSource getAuthSource(String type) {
-        if (StrUtil.isNotBlank(type)) {
-            return AuthSource.valueOf(type.toUpperCase());
-        } else {
-            throw new RuntimeException("不支持的类型");
-        }
-    }
 }
 ```
 
@@ -250,7 +243,7 @@ public class AuthStateConfiguration {
 | ------------------ | ------------------------------------------------------------ | ------ | ---------- | ----------------- |
 | `justauth.enabled` | `boolean`                                                    | true   | true/false | 是否启用 JustAuth |
 | `justauth.type`    | `java.util.Map<me.zhyd.oauth.config.AuthSource,me.zhyd.oauth.config.AuthConfig>` | 无     |            | JustAuth 配置     |
-| `justauth.cache`   | `com.xkcoding.justauth.properties.CacheProperties`           |        |            | JustAuth缓存配置  |
+| `justauth.cache`   | `com.xkcoding.justauth.autoconfigure.CacheProperties`           |        |            | JustAuth缓存配置  |
 
 `justauth.type` 配置列表
 
@@ -263,7 +256,7 @@ public class AuthStateConfiguration {
 
 | 属性名                   | 类型                                                         | 默认值            | 可选项               | 描述                                                         |
 | ------------------------ | ------------------------------------------------------------ | ----------------- | -------------------- | ------------------------------------------------------------ |
-| `justauth.cache.type`    | `com.xkcoding.justauth.properties.CacheProperties.CacheType` | default           | default/redis/custom | 缓存类型，default使用JustAuth默认的缓存实现，redis使用默认的redis缓存实现，custom用户自定义缓存实现 |
+| `justauth.cache.type`    | `com.xkcoding.justauth.autoconfigure.CacheProperties.CacheType` | default           | default/redis/custom | 缓存类型，default使用JustAuth默认的缓存实现，redis使用默认的redis缓存实现，custom用户自定义缓存实现 |
 | `justauth.cache.prefix`  | `string`                                                     | JUSTAUTH::STATE:: |                      | 缓存前缀，目前只对redis缓存生效，默认 JUSTAUTH::STATE::      |
 | `justauth.cache.timeout` | `java.time.Duration`                                         | 3分钟             |                      | 超时时长，目前只对redis缓存生效，默认3分钟                   |
 
@@ -281,8 +274,8 @@ public class AuthStateConfiguration {
     </repository>
     <!--中央仓库-->
     <repository>
-      <id>xkcoding-nexus</id>
-      <name>xkcoding nexus</name>
+      <id>oss</id>
+      <name>oss</name>
       <url>http://oss.sonatype.org/content/repositories/snapshots</url>
       <releases>
         <enabled>true</enabled>

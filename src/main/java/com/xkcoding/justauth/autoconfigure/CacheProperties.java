@@ -15,7 +15,7 @@
  *
  */
 
-package com.xkcoding.justauth.properties;
+package com.xkcoding.justauth.autoconfigure;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.xkcoding.justauth.JustAuthAutoConfiguration
+  com.xkcoding.justauth.autoconfigure.JustAuthAutoConfiguration
