@@ -67,7 +67,7 @@
     <!--SpringBoot版本-->
     <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
     <!--JustAuth版本-->
-    <justauth.version>1.11.0</justauth.version>
+    <justauth.version>1.12.0</justauth.version>
   </properties>
 
   <dependencies>
