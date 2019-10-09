@@ -4,11 +4,9 @@
 >
 > JustAuth 脚手架
 
-![Maven Central](https://img.shields.io/maven-central/v/com.xkcoding/justauth-spring-boot-starter.svg?color=brightgreen&label=Maven%20Central)
-![Travis (.com)](https://img.shields.io/travis/com/xkcoding/justauth-spring-boot-starter.svg?label=Build%20Status)
-![GitHub](https://img.shields.io/github/license/xkcoding/justauth-spring-boot-starter.svg)
+![Maven Central](https://img.shields.io/maven-central/v/com.xkcoding/justauth-spring-boot-starter.svg?color=brightgreen&label=Maven%20Central)![Travis (.com)](https://img.shields.io/travis/com/xkcoding/justauth-spring-boot-starter.svg?label=Build%20Status)![GitHub](https://img.shields.io/github/license/xkcoding/justauth-spring-boot-starter.svg)
 
-## Demo
+## 1. Demo
 
 懒得看文档的，可以直接看demo
 
@@ -16,13 +14,13 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 
 完整版 demo：https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social
 
-## 更新日志
+## 2. 更新日志
 
 [CHANGELOG](./CHANGELOG.md)
 
-## 快速开始
+## 3. 快速开始
 
-### 1. 基础配置
+### 3.1. 基础配置
 
 - 引用依赖
 
@@ -80,13 +78,13 @@ public class TestController {
 }
 ```
 
-### 2. 缓存配置
+### 3.2. 缓存配置
 
 > starter 内置了2种缓存实现，一种是上面的默认实现，另一种是基于 Redis 的缓存实现。
 >
 > 当然了，你也可以自定义实现你自己的缓存。
 
-#### 2.1. 默认缓存实现
+#### 3.2.1. 默认缓存实现
 
 在配置文件配置如下内容即可
 
@@ -96,7 +94,7 @@ justauth:
     type: default
 ```
 
-#### 2.2. Redis 缓存实现
+#### 3.2.2. Redis 缓存实现
 
 1.添加 Redis 相关依赖
 
@@ -142,7 +140,7 @@ spring:
         min-idle: 0
 ```
 
-#### 2.3. 自定义缓存实现
+#### 3.2.3. 自定义缓存实现
 
 1.配置文件配置如下内容
 
@@ -233,36 +231,208 @@ public class AuthStateConfiguration {
 }
 ```
 
-## 附录
+### 3.3. 自定义第三方平台配置
 
-### 1. 基础配置
+1.创建自定义的平台枚举类
 
-`justauth` 配置列表
+```java
+/**
+ * <p>
+ * 扩展的自定义 source
+ * </p>
+ *
+ * @author yangkai.shen
+ * @date Created in 2019/10/9 14:14
+ */
+public enum ExtendSource implements AuthSource {
 
-| 属性名             | 类型                                                         | 默认值 | 可选项     | 描述              |
-| ------------------ | ------------------------------------------------------------ | ------ | ---------- | ----------------- |
-| `justauth.enabled` | `boolean`                                                    | true   | true/false | 是否启用 JustAuth |
-| `justauth.type`    | `java.util.Map<me.zhyd.oauth.config.AuthSource,me.zhyd.oauth.config.AuthConfig>` | 无     |            | JustAuth 配置     |
-| `justauth.cache`   | `com.xkcoding.justauth.autoconfigure.CacheProperties`           |        |            | JustAuth缓存配置  |
+    /**
+     * 测试
+     */
+    TEST {
+        /**
+         * 授权的api
+         *
+         * @return url
+         */
+        @Override
+        public String authorize() {
+            return "http://authorize";
+        }
 
-`justauth.type` 配置列表
+        /**
+         * 获取accessToken的api
+         *
+         * @return url
+         */
+        @Override
+        public String accessToken() {
+            return "http://accessToken";
+        }
+
+        /**
+         * 获取用户信息的api
+         *
+         * @return url
+         */
+        @Override
+        public String userInfo() {
+            return null;
+        }
+
+        /**
+         * 取消授权的api
+         *
+         * @return url
+         */
+        @Override
+        public String revoke() {
+            return null;
+        }
+
+        /**
+         * 刷新授权的api
+         *
+         * @return url
+         */
+        @Override
+        public String refresh() {
+            return null;
+        }
+    }
+}
+```
+
+2.创建自定义的请求处理
+
+```java
+/**
+ * <p>
+ * 测试用自定义扩展的第三方request
+ * </p>
+ *
+ * @author yangkai.shen
+ * @date Created in 2019/10/9 14:19
+ */
+public class ExtendTestRequest extends AuthDefaultRequest {
+
+    public ExtendTestRequest(AuthConfig config) {
+        super(config, ExtendSource.TEST);
+    }
+
+    public ExtendTestRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, ExtendSource.TEST, authStateCache);
+    }
+
+    /**
+     * 获取access token
+     *
+     * @param authCallback 授权成功后的回调参数
+     * @return token
+     * @see AuthDefaultRequest#authorize()
+     * @see AuthDefaultRequest#authorize(String)
+     */
+    @Override
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
+        return AuthToken.builder().openId("openId").expireIn(1000).idToken("idToken").scope("scope").refreshToken("refreshToken").accessToken("accessToken").code("code").build();
+    }
+
+    /**
+     * 使用token换取用户信息
+     *
+     * @param authToken token信息
+     * @return 用户信息
+     * @see AuthDefaultRequest#getAccessToken(AuthCallback)
+     */
+    @Override
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        return AuthUser.builder().username("test").nickname("test").gender(AuthUserGender.MALE).token(authToken).source(this.source.toString()).build();
+    }
+
+    /**
+     * 撤销授权
+     *
+     * @param authToken 登录成功后返回的Token信息
+     * @return AuthResponse
+     */
+    @Override
+    public AuthResponse revoke(AuthToken authToken) {
+        return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).msg(AuthResponseStatus.SUCCESS.getMsg()).build();
+    }
+
+    /**
+     * 刷新access token （续期）
+     *
+     * @param authToken 登录成功后返回的Token信息
+     * @return AuthResponse
+     */
+    @Override
+    public AuthResponse refresh(AuthToken authToken) {
+        return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(AuthToken.builder().openId("openId").expireIn(1000).idToken("idToken").scope("scope").refreshToken("refreshToken").accessToken("accessToken").code("code").build()).build();
+    }
+}
+```
+
+3.在配置文件配置相关信息
+
+```yaml
+justauth:
+  enabled: true
+  extend:
+    enum-class: com.xkcoding.justauthspringbootstarterdemo.extend.ExtendSource
+    config:
+      TEST:
+        request-class: com.xkcoding.justauthspringbootstarterdemo.extend.ExtendTestRequest
+        client-id: xxxxxx
+        client-secret: xxxxxxxx
+        redirect-uri: http://oauth.xkcoding.com/demo/oauth/test/callback
+```
+
+## 4. 附录
+
+### 4.1. 基础配置
+
+#### 4.1.1. `justauth` 配置列表
+
+| 属性名             | 类型                                                         | 默认值 | 可选项     | 描述                   |
+| ------------------ | ------------------------------------------------------------ | ------ | ---------- | ---------------------- |
+| `justauth.enabled` | `boolean`                                                    | true   | true/false | 是否启用 JustAuth      |
+| `justauth.type`    | `java.util.Map<me.zhyd.oauth.config.AuthSource,me.zhyd.oauth.config.AuthConfig>` | 无     |            | JustAuth 配置          |
+| `justauth.cache`   | `com.xkcoding.justauth.autoconfigure.CacheProperties`        |        |            | JustAuth缓存配置       |
+| `justauth.extend`  | `com.xkcoding.justauth.autoconfigure.ExtendProperties`       | 无     |            | JustAuth第三方平台配置 |
+
+##### 4.1.1.1. `justauth.type` 配置列表
 
 | 属性名                      | 描述                                                         |
 | --------------------------- | ------------------------------------------------------------ |
 | `justauth.type.keys`        | `justauth.type` 是 `Map` 格式的，key 的取值请参考 [`AuthSource`](https://github.com/zhangyd-c/JustAuth/blob/master/src/main/java/me/zhyd/oauth/config/AuthSource.java) |
 | `justauth.type.keys.values` | `justauth.type` 是 `Map` 格式的，value 的取值请参考 [`AuthConfig`](https://github.com/zhangyd-c/JustAuth/blob/master/src/main/java/me/zhyd/oauth/config/AuthConfig.java) |
 
-`justauth.cache` 配置列表
+##### 4.1.1.2.`justauth.cache` 配置列表
 
 | 属性名                   | 类型                                                         | 默认值            | 可选项               | 描述                                                         |
 | ------------------------ | ------------------------------------------------------------ | ----------------- | -------------------- | ------------------------------------------------------------ |
 | `justauth.cache.type`    | `com.xkcoding.justauth.autoconfigure.CacheProperties.CacheType` | default           | default/redis/custom | 缓存类型，default使用JustAuth默认的缓存实现，redis使用默认的redis缓存实现，custom用户自定义缓存实现 |
-| `justauth.cache.prefix`  | `string`                                                     | JUSTAUTH::STATE:: |                      | 缓存前缀，目前只对redis缓存生效，默认 JUSTAUTH::STATE::      |
-| `justauth.cache.timeout` | `java.time.Duration`                                         | 3分钟             |                      | 超时时长，目前只对redis缓存生效，默认3分钟                   |
+| `justauth.cache.prefix`  | `java.lang.String`                                           | JUSTAUTH::STATE:: |                      | 缓存前缀，目前只对redis缓存生效，默认 `JUSTAUTH::STATE::`    |
+| `justauth.cache.timeout` | `java.time.Duration`                                         | 3分钟             |                      | 超时时长，目前只对redis缓存生效，默认`3分钟`                 |
 
-### 2. SNAPSHOT版本
+##### 4.1.1.3.`justauth.extend` 配置列表
 
-如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
+| 属性名                       | 类型                                         | 默认值 | 可选项 | 描述         |
+| ---------------------------- | -------------------------------------------- | ------ | ------ | ------------ |
+| `justauth.extend.enum-class` | `Class<? extends AuthSource>`                | 无     |        | 枚举类全路径 |
+| `justauth.extend.config`     | `java.util.Map<String, ExtendRequestConfig>` | 无     |        | 对应配置信息 |
+
+###### 4.1.1.3.1.`justauth.extend.config` 配置列表
+
+| 属性名                          | 类型                                                         | 默认值 | 可选项 | 描述                                                         |
+| ------------------------------- | ------------------------------------------------------------ | ------ | ------ | ------------------------------------------------------------ |
+| `justauth.extend.config.keys`   | `java.lang.String`                                           | 无     |        | key 必须在 `justauth.extend.enum-class` 配置的枚举类中声明   |
+| `justauth.extend.config.values` | `com.xkcoding.justauth.autoconfigure.ExtendProperties.ExtendRequestConfig` | 无     |        | value 就是 `AuthConfig` 的子类，增加了一个 `request-class` 属性配置请求的全类名，具体参考类[`ExtendProperties.ExtendRequestConfig`](https://github.com/justauth/justauth-spring-boot-starter/blob/master/src/main/java/com/xkcoding/justauth/autoconfigure/ExtendProperties.java#L49-L54) |
+
+### 4.2. SNAPSHOT版本
+
+![https://img.shields.io/badge/snapshots-1.2.0--SNAPSHOT-green](https://img.shields.io/badge/snapshots-1.2.0--SNAPSHOT-green)如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
 
 ```xml
 <repositories>
