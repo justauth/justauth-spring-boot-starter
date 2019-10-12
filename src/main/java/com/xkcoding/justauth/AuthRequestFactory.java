@@ -33,6 +33,7 @@ import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +62,16 @@ public class AuthRequestFactory {
     public List<String> oauthList() {
         // 默认列表
         List<String> defaultList = properties.getType().keySet().stream().map(Enum::name).collect(Collectors.toList());
-
-        Class enumClass = properties.getExtend().getEnumClass();
-        List<String> names = EnumUtil.getNames(enumClass);
         // 扩展列表
-        List<String> extendList = properties.getExtend().getConfig().keySet().stream().filter(x -> names.contains(x.toUpperCase())).map(String::toUpperCase).collect(Collectors.toList());
+        List<String> extendList = new ArrayList<>();
+        ExtendProperties extend = properties.getExtend();
+        if (null != extend){
+            Class enumClass = extend.getEnumClass();
+            List<String> names = EnumUtil.getNames(enumClass);
+            // 扩展列表
+            extendList = extend.getConfig().keySet().stream().filter(x -> names.contains(x.toUpperCase())).map(String::toUpperCase).collect(Collectors.toList());
+        }
+
         // 合并
         return (List<String>) CollUtil.addAll(defaultList, extendList);
     }
