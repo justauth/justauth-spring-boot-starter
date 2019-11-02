@@ -4,7 +4,7 @@
 >
 > JustAuth 脚手架
 
-![Maven Central](https://img.shields.io/maven-central/v/com.xkcoding/justauth-spring-boot-starter.svg?color=brightgreen&label=Maven%20Central)![Travis (.com)](https://img.shields.io/travis/com/xkcoding/justauth-spring-boot-starter.svg?label=Build%20Status)![GitHub](https://img.shields.io/github/license/xkcoding/justauth-spring-boot-starter.svg)
+![Maven Central](https://img.shields.io/maven-central/v/com.xkcoding.justauth/justauth-spring-boot-starter.svg?color=brightgreen&label=Maven%20Central)![Travis (.com)](https://img.shields.io/travis/com/xkcoding/justauth-spring-boot-starter.svg?label=Build%20Status)![GitHub](https://img.shields.io/github/license/xkcoding/justauth-spring-boot-starter.svg)
 
 ## 1. Demo
 
@@ -26,7 +26,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 
 ```xml
 <dependency>
-  <groupId>com.xkcoding</groupId>
+  <groupId>com.xkcoding.justauth</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
   <version>1.2.1</version>
 </dependency>
