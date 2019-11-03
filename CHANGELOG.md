@@ -3,6 +3,7 @@
 ### 【1.3.0】
 
 - 修改 `groupId` 为 `com.xkcoding.justauth`
+- 升级 `JustAuth` 版本：1.13.0，支持 `推特`
 
 ### 【1.2.1】2019-10-12
 
