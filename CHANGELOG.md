@@ -1,5 +1,9 @@
 ## 版本更新记录
 
+### 【1.3.0】
+
+- 修改 `groupId` 为 `com.xkcoding.justauth`
+
 ### 【1.2.1】2019-10-12
 
 - 紧急修复Oauth列表空指针BUG
