@@ -65,7 +65,7 @@ public class AuthRequestFactory {
         // 扩展列表
         List<String> extendList = new ArrayList<>();
         ExtendProperties extend = properties.getExtend();
-        if (null != extend){
+        if (null != extend) {
             Class enumClass = extend.getEnumClass();
             List<String> names = EnumUtil.getNames(enumClass);
             // 扩展列表
@@ -221,6 +221,8 @@ public class AuthRequestFactory {
                 return new AuthElemeRequest(config, authStateCache);
             case MEITUAN:
                 return new AuthMeituanRequest(config, authStateCache);
+            case TWITTER:
+                return new AuthTwitterRequest(config, authStateCache);
             default:
                 return null;
         }
