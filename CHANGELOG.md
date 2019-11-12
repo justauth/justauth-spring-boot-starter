@@ -1,5 +1,9 @@
 ## 版本更新记录
 
+### 【1.3.1】2019-11-12
+
+- 升级 `JustAuth` 版本：1.13.1，修复 `AuthCallback` 异常的问题，参见 [ISSUE#52](https://github.com/justauth/JustAuth/issues/52)
+
 ### 【1.3.0】2019-11-04
 
 - 修改 `groupId` 为 `com.xkcoding.justauth`
