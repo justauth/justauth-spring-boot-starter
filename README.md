@@ -432,7 +432,7 @@ justauth:
 
 ### 4.2. SNAPSHOT版本
 
-![https://img.shields.io/badge/snapshots-1.3.1--SNAPSHOT-green](https://img.shields.io/badge/snapshots-1.3.1--SNAPSHOT-green)如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
+![https://img.shields.io/badge/snapshots-1.3.2--SNAPSHOT-green](https://img.shields.io/badge/snapshots-1.3.2--SNAPSHOT-green)如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
 
 ```xml
 <repositories>

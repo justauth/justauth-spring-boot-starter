@@ -54,7 +54,7 @@ abstract class JustAuthStateCacheConfiguration {
             log.debug("JustAuth 使用 Redis 缓存存储 state 数据");
         }
 
-        @Bean
+        @Bean(name = "justAuthRedisCacheTemplate")
         public RedisTemplate<String, String> justAuthRedisCacheTemplate(RedisConnectionFactory redisConnectionFactory) {
             RedisTemplate<String, String> template = new RedisTemplate<>();
             template.setKeySerializer(new StringRedisSerializer());
