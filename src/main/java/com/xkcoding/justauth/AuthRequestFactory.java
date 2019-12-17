@@ -69,7 +69,12 @@ public class AuthRequestFactory {
             Class enumClass = extend.getEnumClass();
             List<String> names = EnumUtil.getNames(enumClass);
             // 扩展列表
-            extendList = extend.getConfig().keySet().stream().filter(x -> names.contains(x.toUpperCase())).map(String::toUpperCase).collect(Collectors.toList());
+            extendList = extend.getConfig()
+                .keySet()
+                .stream()
+                .filter(x -> names.contains(x.toUpperCase()))
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
         }
 
         // 合并
@@ -183,8 +188,12 @@ public class AuthRequestFactory {
                 return new AuthAlipayRequest(config, authStateCache);
             case QQ:
                 return new AuthQqRequest(config, authStateCache);
-            case WECHAT:
-                return new AuthWeChatRequest(config, authStateCache);
+            case WECHAT_MP:
+                return new AuthWeChatMpRequest(config, authStateCache);
+            case WECHAT_OPEN:
+                return new AuthWeChatOpenRequest(config, authStateCache);
+            case WECHAT_ENTERPRISE:
+                return new AuthWeChatEnterpriseRequest(config, authStateCache);
             case TAOBAO:
                 return new AuthTaobaoRequest(config, authStateCache);
             case GOOGLE:
@@ -211,8 +220,6 @@ public class AuthRequestFactory {
                 return new AuthStackOverflowRequest(config, authStateCache);
             case HUAWEI:
                 return new AuthHuaweiRequest(config, authStateCache);
-            case WECHAT_ENTERPRISE:
-                return new AuthWeChatEnterpriseRequest(config, authStateCache);
             case GITLAB:
                 return new AuthGitlabRequest(config, authStateCache);
             case KUJIALE:
