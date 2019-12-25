@@ -1,5 +1,9 @@
 ## 版本更新记录
 
+### 【1.3.2】2019-12-25
+
+- 升级 `JustAuth` 版本：1.13.2，新增微信公众号登录，区分之前的开放平台登录
+
 ### 【1.3.1】2019-11-12
 
 - 升级 `JustAuth` 版本：1.13.1，修复 `AuthCallback` 异常的问题，参见 [ISSUE#52](https://github.com/justauth/JustAuth/issues/52)
