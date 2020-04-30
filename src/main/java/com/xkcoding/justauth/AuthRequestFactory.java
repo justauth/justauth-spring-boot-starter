@@ -92,13 +92,16 @@ public class AuthRequestFactory {
             throw new AuthException(AuthResponseStatus.NO_AUTH_SOURCE);
         }
 
-        // 获取 JustAuth 中已存在的
-        AuthRequest authRequest = getDefaultRequest(source);
 
         // 如果获取不到则尝试取自定义的
+        AuthRequest authRequest = getExtendRequest(properties.getExtend().getEnumClass(), source);
+
+        // 获取 JustAuth 中已存在的
         if (authRequest == null) {
-            authRequest = getExtendRequest(properties.getExtend().getEnumClass(), source);
+            authRequest = getDefaultRequest(source);
         }
+
+
 
         if (authRequest == null) {
             throw new AuthException(AuthResponseStatus.UNSUPPORTED);
