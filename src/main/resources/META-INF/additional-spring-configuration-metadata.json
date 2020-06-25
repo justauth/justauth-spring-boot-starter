@@ -43,10 +43,6 @@
               "description": "CODING."
             },
             {
-              "value": "TENCENT_CLOUD",
-              "description": "TENCENT_CLOUD."
-            },
-            {
               "value": "OSCHINA",
               "description": "OSCHINA."
             },
@@ -57,10 +53,6 @@
             {
               "value": "QQ",
               "description": "QQ."
-            },
-            {
-              "value": "WECHAT",
-              "description": "WECHAT."
             },
             {
               "value": "TAOBAO",
@@ -109,6 +101,50 @@
             {
               "value": "STACK_OVERFLOW",
               "description": "STACK_OVERFLOW."
+            },
+            {
+              "value": "HUAWEI",
+              "description": "HUAWEI."
+            },
+            {
+              "value": "WECHAT_OPEN",
+              "description": "WeChat open platform."
+            },
+            {
+              "value": "WECHAT_ENTERPRISE",
+              "description": "WeChat enterprise platform."
+            },
+            {
+              "value": "WECHAT_MP",
+              "description": "WeChat Official Platform."
+            },
+            {
+              "value": "KUJIALE",
+              "description": "KUJIALE."
+            },
+            {
+              "value": "GITLAB",
+              "description": "GITLAB."
+            },
+            {
+              "value": "MEITUAN",
+              "description": "MEITUAN."
+            },
+            {
+              "value": "ELEME",
+              "description": "ELEME."
+            },
+            {
+              "value": "GITLAB",
+              "description": "GITLAB."
+            },
+            {
+              "value": "TWITTER",
+              "description": "TWITTER."
+            },
+            {
+              "value": "ALIYUN",
+              "description": "ALIYUN."
             }
           ],
           "parameters": {

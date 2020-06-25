@@ -20,10 +20,10 @@ package com.xkcoding.justauth.autoconfigure;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthDefaultSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+import java.net.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +47,13 @@ public class JustAuthProperties {
     /**
      * JustAuth 默认配置
      */
-    private Map<AuthDefaultSource, AuthConfig> type = new HashMap<>();
+    private Map<String, AuthConfig> type = new HashMap<>();
+
+
+    /**
+     * http 相关的配置，可设置请求超时时间和代理配置
+     */
+    private JustAuthHttpConfig httpConfig;
 
     /**
      * JustAuth 自定义配置
@@ -60,5 +66,20 @@ public class JustAuthProperties {
      */
     @NestedConfigurationProperty
     private CacheProperties cache = new CacheProperties();
+
+    @Getter
+    @Setter
+    public static class JustAuthProxyConfig {
+        private String type = Proxy.Type.HTTP.name();
+        private String hostname;
+        private int port;
+    }
+
+    @Getter
+    @Setter
+    public static class JustAuthHttpConfig {
+        private int timeout;
+        private Map<String, JustAuthProxyConfig> proxy;
+    }
 
 }

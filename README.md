@@ -28,7 +28,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 <dependency>
   <groupId>com.xkcoding.justauth</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>1.3.4</version>
+  <version>1.3.5</version>
 </dependency>
 ```
 
@@ -75,10 +75,7 @@ justauth:
       client-id: 10**********6
       client-secret: 1f7d08**********5b7**********29e
       redirect-uri: http://oauth.xkcoding.com/demo/oauth/coding/callback
-    TENCENT_CLOUD:
-      client-id: 10**********6
-      client-secret: 1f7d08**********5b7**********29e
-      redirect-uri: http://oauth.xkcoding.com/demo/oauth/tencent_cloud/callback
+      coding-group-name: xx
     OSCHINA:
       client-id: 10**********6
       client-secret: 1f7d08**********5b7**********29e
@@ -522,39 +519,78 @@ justauth:
         redirect-uri: http://oauth.xkcoding.com/demo/oauth/test/callback
 ```
 
-## 4. 附录
+## 4. http 代理配置
 
-### 4.1. 基础配置
+修改配置文件，增加如下配置：
 
-#### 4.1.1. `justauth` 配置列表
+```yaml
+justauth:
+  http-config:
+    timeout: 30000
+    proxy:
+      GOOGLE:
+        type: HTTP
+        hostname: 127.0.0.1
+        port: 10080
+```
+
+注：当项目中使用了自定义的第三方登录，并且需要使用代理时，也要在 `http-config` 节点下添加相关配置，格式参考上面示例
+
+## 5. 附录
+
+### 5.1. `justauth` 配置列表
 
 | 属性名             | 类型                                                         | 默认值 | 可选项     | 描述                   |
 | ------------------ | ------------------------------------------------------------ | ------ | ---------- | ---------------------- |
 | `justauth.enabled` | `boolean`                                                    | true   | true/false | 是否启用 JustAuth      |
 | `justauth.type`    | `java.util.Map<me.zhyd.oauth.config.AuthSource,me.zhyd.oauth.config.AuthConfig>` | 无     |            | JustAuth 配置          |
+| `justauth.httpConfig`    | `java.util.Map<me.zhyd.oauth.config.AuthSource,com.xkcoding.justauth.autoconfigure.JustAuthProperties.JustAuthHttpConfig>` | 无     |            | http 相关配置          |
 | `justauth.cache`   | `com.xkcoding.justauth.autoconfigure.CacheProperties`        |        |            | JustAuth缓存配置       |
 | `justauth.extend`  | `com.xkcoding.justauth.autoconfigure.ExtendProperties`       | 无     |            | JustAuth第三方平台配置 |
 
-##### 4.1.1.1. `justauth.type` 配置列表
+#### `justauth.type` 配置列表
 
 | 属性名                      | 描述                                                         |
 | --------------------------- | ------------------------------------------------------------ |
 | `justauth.type.keys`        | `justauth.type` 是 `Map` 格式的，key 的取值请参考 [`AuthDefaultSource`](https://github.com/zhangyd-c/JustAuth/blob/master/src/main/java/me/zhyd/oauth/config/AuthDefaultSource.java) |
 | `justauth.type.keys.values` | `justauth.type` 是 `Map` 格式的，value 的取值请参考 [`AuthConfig`](https://github.com/zhangyd-c/JustAuth/blob/master/src/main/java/me/zhyd/oauth/config/AuthConfig.java) |
 
-###### 4.1.1.1.1 `justauth.type.keys.values` 所有可选配置如下：
+##### `justauth.type.keys.values` 所有可选配置如下：
 
 | 属性名                      | 描述                                                         | 备注                             |
 | --------------------------- | -----------------------------------------------------------  | ------------------------------- |
-| `client-id`        |  客户端id，对应各平台的appKey  | 必填 |
-| `client-secret` |  客户端Secret，对应各平台的appSecret  | 必填 |
-| `redirect-uri` |  登录成功后的回调地址  | 必填 |
-| `alipay-public-key` |  支付宝公钥  | 当使用支付宝登录时，该值必填，对应“RSA2(SHA256)密钥”中的“支付宝公钥” |
+| `client-id`        |  客户端id，对应各平台的appKey  | **必填** |
+| `client-secret` |  客户端Secret，对应各平台的appSecret  | **必填** |
+| `redirect-uri` |  登录成功后的回调地址  | **必填** |
+| `alipay-public-key` |  支付宝公钥  | 当使用支付宝登录时， **该值必填**，对应“RSA2(SHA256)密钥”中的“支付宝公钥” |
 | `union-id` |  是否需要申请unionid  | 当使用QQ登录时，该值**选填**，如果置为`true`则qq开发者应用必须具备相应权限，参考链接：[查看详情](http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D) |
-| `stack-overflow-key` |  Stack Overflow Key  | 当使用Stack Overflow登录时，该值必填 |
-| `agent-id` |  企业微信，授权方的网页应用ID  | 当使用企业微信登录时，该值必填 |
+| `stack-overflow-key` |  Stack Overflow Key  | 当使用Stack Overflow登录时， **该值必填** |
+| `agent-id` |  企业微信，授权方的网页应用ID  | 当使用企业微信登录时， **该值必填** |
+| `coding-group-name` |  团队域名前缀 | 使用 Coding 登录时， **该值必填** |
 
-##### 4.1.1.2.`justauth.cache` 配置列表
+#### `justauth.httpConfig` 配置列表
+
+| 属性名                      | 描述                                                         |
+| --------------------------- | ------------------------------------------------------------ |
+| `justauth.httpConfig.keys`        | `justauth.type` 是 `Map` 格式的，key 的取值请参考 [`AuthDefaultSource`](https://github.com/zhangyd-c/JustAuth/blob/master/src/main/java/me/zhyd/oauth/config/AuthDefaultSource.java) |
+| `justauth.httpConfig.keys.values` | `justauth.type` 是 `Map` 格式的，value 的取值请参考 `JustAuthProperties.JustAuthHttpConfig` |
+
+##### `justauth.httpConfig.keys.values` 所有可选配置如下：
+
+| 属性名                      | 描述                                                         | 备注                             |
+| --------------------------- | -----------------------------------------------------------  | ------------------------------- |
+| `timeout`        |  请求超时时间  |  |
+| `proxy` |  代理的相关配置，针对国外平台，需要配置代理  | **必填** |
+
+##### `justauth.httpConfig.proxy` 所有可选配置如下：
+
+| 属性名                      | 描述                                                         | 备注                             |
+| --------------------------- | -----------------------------------------------------------  | ------------------------------- |
+| `type`        |  代理类型，可选值：`HTTP`、`DIRECT`、`SOCKS`，默认为 `HTTP`  |  |
+| `hostname` |  代理 IP 地址  |  |
+| `port` |  代理端口  |  |
+
+#### `justauth.cache` 配置列表
 
 | 属性名                   | 类型                                                         | 默认值            | 可选项               | 描述                                                         |
 | ------------------------ | ------------------------------------------------------------ | ----------------- | -------------------- | ------------------------------------------------------------ |
@@ -562,21 +598,21 @@ justauth:
 | `justauth.cache.prefix`  | `java.lang.String`                                           | JUSTAUTH::STATE:: |                      | 缓存前缀，目前只对redis缓存生效，默认 `JUSTAUTH::STATE::`    |
 | `justauth.cache.timeout` | `java.time.Duration`                                         | 3分钟             |                      | 超时时长，目前只对redis缓存生效，默认`3分钟`                 |
 
-##### 4.1.1.3.`justauth.extend` 配置列表
+#### `justauth.extend` 配置列表
 
 | 属性名                       | 类型                                         | 默认值 | 可选项 | 描述         |
 | ---------------------------- | -------------------------------------------- | ------ | ------ | ------------ |
 | `justauth.extend.enum-class` | `Class<? extends AuthSource>`                | 无     |        | 枚举类全路径 |
 | `justauth.extend.config`     | `java.util.Map<String, ExtendRequestConfig>` | 无     |        | 对应配置信息 |
 
-###### 4.1.1.3.1.`justauth.extend.config` 配置列表
+##### `justauth.extend.config` 配置列表
 
 | 属性名                          | 类型                                                         | 默认值 | 可选项 | 描述                                                         |
 | ------------------------------- | ------------------------------------------------------------ | ------ | ------ | ------------------------------------------------------------ |
 | `justauth.extend.config.keys`   | `java.lang.String`                                           | 无     |        | key 必须在 `justauth.extend.enum-class` 配置的枚举类中声明   |
 | `justauth.extend.config.values` | `com.xkcoding.justauth.autoconfigure.ExtendProperties.ExtendRequestConfig` | 无     |        | value 就是 `AuthConfig` 的子类，增加了一个 `request-class` 属性配置请求的全类名，具体参考类[`ExtendProperties.ExtendRequestConfig`](https://github.com/justauth/justauth-spring-boot-starter/blob/master/src/main/java/com/xkcoding/justauth/autoconfigure/ExtendProperties.java#L49-L54) |
 
-### 4.2. SNAPSHOT版本
+### 5.2. SNAPSHOT版本
 
 ![https://img.shields.io/badge/snapshots-1.4.0--SNAPSHOT-green](https://img.shields.io/badge/snapshots-1.4.0--SNAPSHOT-green)如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
 

@@ -46,7 +46,7 @@ public class ExtendProperties {
 
     @Getter
     @Setter
-    public static class ExtendRequestConfig extends AuthConfig{
+    public static class ExtendRequestConfig extends AuthConfig {
         /**
          * 请求对应全路径
          */

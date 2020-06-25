@@ -21,6 +21,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.EnumUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.xkcoding.http.config.HttpConfig;
 import com.xkcoding.justauth.autoconfigure.ExtendProperties;
 import com.xkcoding.justauth.autoconfigure.JustAuthProperties;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,10 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.*;
+import org.springframework.util.CollectionUtils;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +65,7 @@ public class AuthRequestFactory {
     @SuppressWarnings("unchecked")
     public List<String> oauthList() {
         // 默认列表
-        List<String> defaultList = properties.getType().keySet().stream().map(Enum::name).collect(Collectors.toList());
+        List<String> defaultList = new ArrayList<>(properties.getType().keySet());
         // 扩展列表
         List<String> extendList = new ArrayList<>();
         ExtendProperties extend = properties.getExtend();
@@ -116,8 +120,9 @@ public class AuthRequestFactory {
      */
     @SuppressWarnings("unchecked")
     private AuthRequest getExtendRequest(Class clazz, String source) {
+        String upperSource = source.toUpperCase();
         try {
-            EnumUtil.fromString(clazz, source.toUpperCase());
+            EnumUtil.fromString(clazz, upperSource);
         } catch (IllegalArgumentException e) {
             // 无自定义匹配
             return null;
@@ -129,8 +134,12 @@ public class AuthRequestFactory {
         Map<String, ExtendProperties.ExtendRequestConfig> upperConfig = new HashMap<>(6);
         extendConfig.forEach((k, v) -> upperConfig.put(k.toUpperCase(), v));
 
-        ExtendProperties.ExtendRequestConfig extendRequestConfig = upperConfig.get(source.toUpperCase());
+        ExtendProperties.ExtendRequestConfig extendRequestConfig = upperConfig.get(upperSource);
         if (extendRequestConfig != null) {
+
+            // 配置 http config
+            configureHttpConfig(upperSource, extendRequestConfig, properties.getHttpConfig());
+
             Class<? extends AuthRequest> requestClass = extendRequestConfig.getRequestClass();
 
             if (requestClass != null) {
@@ -159,11 +168,14 @@ public class AuthRequestFactory {
             return null;
         }
 
-        AuthConfig config = properties.getType().get(authDefaultSource);
+        AuthConfig config = properties.getType().get(authDefaultSource.name());
         // 找不到对应关系，直接返回空
         if (config == null) {
             return null;
         }
+
+        // 配置 http config
+        configureHttpConfig(authDefaultSource.name(), config, properties.getHttpConfig());
 
         switch (authDefaultSource) {
             case GITHUB:
@@ -180,8 +192,6 @@ public class AuthRequestFactory {
                 return new AuthCsdnRequest(config, authStateCache);
             case CODING:
                 return new AuthCodingRequest(config, authStateCache);
-            case TENCENT_CLOUD:
-                return new AuthTencentCloudRequest(config, authStateCache);
             case OSCHINA:
                 return new AuthOschinaRequest(config, authStateCache);
             case ALIPAY:
@@ -233,5 +243,31 @@ public class AuthRequestFactory {
             default:
                 return null;
         }
+    }
+
+    /**
+     * 配置 http 相关的配置
+     *
+     * @param authSource {@link AuthSource}
+     * @param authConfig {@link AuthConfig}
+     */
+    private void configureHttpConfig(String authSource, AuthConfig authConfig, JustAuthProperties.JustAuthHttpConfig httpConfig) {
+        if (null == httpConfig) {
+            return;
+        }
+        Map<String, JustAuthProperties.JustAuthProxyConfig> proxyConfigMap = httpConfig.getProxy();
+        if (CollectionUtils.isEmpty(proxyConfigMap)) {
+            return;
+        }
+        JustAuthProperties.JustAuthProxyConfig proxyConfig = proxyConfigMap.get(authSource);
+
+        if (null == proxyConfig) {
+            return;
+        }
+
+        authConfig.setHttpConfig(HttpConfig.builder()
+            .timeout(httpConfig.getTimeout())
+            .proxy(new Proxy(Proxy.Type.valueOf(proxyConfig.getType()), new InetSocketAddress(proxyConfig.getHostname(), proxyConfig.getPort())))
+            .build());
     }
 }

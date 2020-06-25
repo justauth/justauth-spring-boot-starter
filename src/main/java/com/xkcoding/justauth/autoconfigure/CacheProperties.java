@@ -66,6 +66,6 @@ public class CacheProperties {
         /**
          * 自定义缓存
          */
-        CUSTOM;
+        CUSTOM
     }
 }
