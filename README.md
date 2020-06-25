@@ -37,10 +37,11 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 注意：
 
 - `justauth.type`节点的配置，请根据项目实际情况选择，多余的可以删除
-- 如果使用QQ登录，并且需要获取`unionId`，则必须传`union-id`配置，并置为`true`
+- 如果使用 QQ 登录，并且需要获取`unionId`，则必须传`union-id`配置，并置为`true`
 - 如果使用支付宝登录，必传`alipay-public-key`
-- 如果使用Stack Overflow登录，必传`stack-overflow-key`
+- 如果使用 Stack Overflow 登录，必传`stack-overflow-key`
 - 如果使用企业微信登录，必传`agent-id`
+- 如果使用 CODING 登录，必传`coding-group-name`
 
 ```yaml
 justauth:
