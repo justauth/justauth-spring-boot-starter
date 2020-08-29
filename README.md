@@ -28,7 +28,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 <dependency>
   <groupId>com.xkcoding.justauth</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>1.3.4</version>
+  <version>1.3.4.beta</version>
 </dependency>
 ```
 
@@ -537,9 +537,29 @@ justauth:
 
 注：当项目中使用了自定义的第三方登录，并且需要使用代理时，也要在 `http-config` 节点下添加相关配置，格式参考上面示例
 
-## 5. 附录
+## 5. 自定义 Scopes
 
-### 5.1. `justauth` 配置列表
+修改配置文件，增加如下配置：
+
+```yml
+justauth:
+  enabled: true
+  type:
+    QQ:
+      client-id: 10**********6
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/qq/callback
+      union-id: false
+      scopes:
+       - get_user_info
+       - xxxx
+```
+
+注：你可以前往 `me.zhyd.oauth.enums.scope` 包下查看各个渠道所支持的 scopes，当然你可以不配置该项，JustAuth 会默认添加上一些基础 scope
+
+## 6. 附录
+
+### 6.1. `justauth` 配置列表
 
 | 属性名             | 类型                                                         | 默认值 | 可选项     | 描述                   |
 | ------------------ | ------------------------------------------------------------ | ------ | ---------- | ---------------------- |
@@ -613,7 +633,7 @@ justauth:
 | `justauth.extend.config.keys`   | `java.lang.String`                                           | 无     |        | key 必须在 `justauth.extend.enum-class` 配置的枚举类中声明   |
 | `justauth.extend.config.values` | `com.xkcoding.justauth.autoconfigure.ExtendProperties.ExtendRequestConfig` | 无     |        | value 就是 `AuthConfig` 的子类，增加了一个 `request-class` 属性配置请求的全类名，具体参考类[`ExtendProperties.ExtendRequestConfig`](https://github.com/justauth/justauth-spring-boot-starter/blob/master/src/main/java/com/xkcoding/justauth/autoconfigure/ExtendProperties.java#L49-L54) |
 
-### 5.2. SNAPSHOT版本
+### 6.2. SNAPSHOT版本
 
 ![https://img.shields.io/badge/snapshots-1.4.0--SNAPSHOT-green](https://img.shields.io/badge/snapshots-1.4.0--SNAPSHOT-green)如果需要体验快照版本，可以在你的 `pom.xml`进行如下配置：
 

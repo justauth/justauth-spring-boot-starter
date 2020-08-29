@@ -62,7 +62,7 @@ public class AuthRequestFactory {
      *
      * @return Oauth列表
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public List<String> oauthList() {
         // 默认列表
         List<String> defaultList = new ArrayList<>(properties.getType().keySet());
@@ -118,7 +118,7 @@ public class AuthRequestFactory {
      * @param source {@link AuthSource}
      * @return {@link AuthRequest}
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private AuthRequest getExtendRequest(Class clazz, String source) {
         String upperSource = source.toUpperCase();
         try {
