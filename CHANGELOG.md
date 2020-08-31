@@ -2,7 +2,7 @@
 
 ### 【1.3.4.beta】2020-08-29
 
-- 升级 `JustAuth` 版本：1.15.7-beta.3，支持自定义 http config
+- 升级 `JustAuth` 版本：1.15.7-beta.3，支持自定义 http config 以及自定义 scopes
 - 升级 `hutool-core` 版本：5.4.0，修复 `JSONUtil.toJsonStr(obj)` 报错的问题，参见 [ISSUE#8](https://github.com/justauth/justauth-spring-boot-starter/issues/8)
 
 ### 【1.3.3】2020-04-13
