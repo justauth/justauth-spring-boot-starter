@@ -72,7 +72,7 @@
     <!--SpringBoot版本-->
     <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
     <!--JustAuth版本-->
-    <justauth.version>1.15.7-beta.3</justauth.version>
+    <justauth.version>1.15.7</justauth.version>
     <hutool.version>5.4.0</hutool.version>
   </properties>
 
