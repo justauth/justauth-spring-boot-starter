@@ -1,5 +1,9 @@
 ## 版本更新记录
 
+### 【1.3.4】2020-09-12
+
+- 升级 `JustAuth` 版本：1.15.7，更新最新的 GitHub API
+
 ### 【1.3.4.beta】2020-08-29
 
 - 升级 `JustAuth` 版本：1.15.7-beta.3，支持自定义 http config 以及自定义 scopes
