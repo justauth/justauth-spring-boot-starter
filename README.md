@@ -172,6 +172,24 @@ justauth:
       client-id: 10**********6
       client-secret: 1f7d08**********5b7**********29e
       redirect-uri: http://oauth.xkcoding.com/demo/oauth/twitter/callback
+    XMLY:
+      client-id: 10**********6
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/xmly/callback
+      # 设备唯一标识ID
+      device-id: xxxxxxxxxxxxxx
+      # 客户端操作系统类型，1-iOS系统，2-Android系统，3-Web
+      client-os-type: 3
+      # 客户端包名，如果 clientOsType 为1或2时必填。对Android客户端是包名，对IOS客户端是Bundle ID
+      #pack-id: xxxx
+    FEISHU:
+      client-id: 10**********6
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/feishu/callback
+    JD:
+      client-id: 10**********6
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/jd/callback
   cache:
     type: default
 ```

@@ -203,7 +203,9 @@ public class AuthRequestFactory {
             case WECHAT_OPEN:
                 return new AuthWeChatOpenRequest(config, authStateCache);
             case WECHAT_ENTERPRISE:
-                return new AuthWeChatEnterpriseRequest(config, authStateCache);
+                return new AuthWeChatEnterpriseQrcodeRequest(config, authStateCache);
+            case WECHAT_ENTERPRISE_WEB:
+                return new AuthWeChatEnterpriseWebRequest(config, authStateCache);
             case TAOBAO:
                 return new AuthTaobaoRequest(config, authStateCache);
             case GOOGLE:
@@ -240,6 +242,14 @@ public class AuthRequestFactory {
                 return new AuthMeituanRequest(config, authStateCache);
             case TWITTER:
                 return new AuthTwitterRequest(config, authStateCache);
+            case FEISHU:
+                return new AuthFeishuRequest(config, authStateCache);
+            case JD:
+                return new AuthJdRequest(config, authStateCache);
+            case ALIYUN:
+                return new AuthAliyunRequest(config, authStateCache);
+            case XMLY:
+                return new AuthXmlyRequest(config, authStateCache);
             default:
                 return null;
         }
