@@ -28,7 +28,7 @@ https://github.com/xkcoding/justauth-spring-boot-starter-demo
 <dependency>
   <groupId>com.xkcoding.justauth</groupId>
   <artifactId>justauth-spring-boot-starter</artifactId>
-  <version>1.3.4</version>
+  <version>1.3.5</version>
 </dependency>
 ```
 
