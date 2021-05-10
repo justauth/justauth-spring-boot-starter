@@ -1,5 +1,10 @@
 ## 版本更新记录
 
+### 【1.4.0】2021-05-10
+
+- 升级 `JustAuth` 版本：1.16.1，新增Amazon、Slack、LINE、Okta、钉钉账号登录，同时修复若干BUG，详细信息请参考参考：https://github.com/justauth/JustAuth/blob/master/CHANGELOGS.md#1161
+- 升级 `hutool-core` 版本：5.6.5
+
 ### 【1.3.5】2021-01-04
 
 - 升级 `JustAuth` 版本：1.15.9，新增飞书、京东、阿里云、喜马拉雅、企业微信网页端登录

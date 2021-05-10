@@ -186,6 +186,8 @@ public class AuthRequestFactory {
                 return new AuthGiteeRequest(config, authStateCache);
             case DINGTALK:
                 return new AuthDingTalkRequest(config, authStateCache);
+            case DINGTALK_ACCOUNT:
+                return new AuthDingTalkAccountRequest(config, authStateCache);
             case BAIDU:
                 return new AuthBaiduRequest(config, authStateCache);
             case CSDN:
@@ -198,10 +200,10 @@ public class AuthRequestFactory {
                 return new AuthAlipayRequest(config, authStateCache);
             case QQ:
                 return new AuthQqRequest(config, authStateCache);
-            case WECHAT_MP:
-                return new AuthWeChatMpRequest(config, authStateCache);
             case WECHAT_OPEN:
                 return new AuthWeChatOpenRequest(config, authStateCache);
+            case WECHAT_MP:
+                return new AuthWeChatMpRequest(config, authStateCache);
             case WECHAT_ENTERPRISE:
                 return new AuthWeChatEnterpriseQrcodeRequest(config, authStateCache);
             case WECHAT_ENTERPRISE_WEB:
@@ -250,6 +252,14 @@ public class AuthRequestFactory {
                 return new AuthAliyunRequest(config, authStateCache);
             case XMLY:
                 return new AuthXmlyRequest(config, authStateCache);
+            case AMAZON:
+                return new AuthAmazonRequest(config, authStateCache);
+            case SLACK:
+                return new AuthSlackRequest(config, authStateCache);
+            case LINE:
+                return new AuthLineRequest(config, authStateCache);
+            case OKTA:
+                return new AuthOktaRequest(config, authStateCache);
             default:
                 return null;
         }
