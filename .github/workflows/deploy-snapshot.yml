@@ -1,0 +1,65 @@
+name: Deploy
+
+on: 
+  push:
+    branches: [ dev ]
+    paths:
+      - src/**
+      - pom.xml
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.2.0
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: Cache m2 package
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - run: mvn test
+
+  deploy-snapshot:
+    needs: test
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.2.0
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Cache m2 package
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: setting snapshot version
+        run: |
+          import xml.etree.ElementTree as ET
+          tree = ET.parse("pom.xml")
+          version = tree.find("{http://maven.apache.org/POM/4.0.0}version")
+          print(version.text + "-SNAPSHOT")
+          if version.text.endswith("-SNAPSHOT") == False:
+            tree.find("{http://maven.apache.org/POM/4.0.0}version").text = version.text + "-SNAPSHOT"
+            ET.register_namespace("", "http://maven.apache.org/POM/4.0.0")
+            tree.write("pom.xml", "utf-8", True)
+        shell: python
+      - name: deploy snapshot to ossrh repository
+        run: mvn -B deploy -P snapshot -DskipTests
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
