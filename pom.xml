@@ -247,7 +247,7 @@
       <distributionManagement>
         <repository>
           <id>oss</id>
-          <name>Oss Snapshot Repository</name>
+          <name>Oss Release Repository</name>
           <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
       </distributionManagement>
