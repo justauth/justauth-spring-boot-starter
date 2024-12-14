@@ -186,6 +186,8 @@ public class AuthRequestFactory {
                 return new AuthGiteeRequest(config, authStateCache);
             case DINGTALK:
                 return new AuthDingTalkRequest(config, authStateCache);
+            case DINGTALK_V2:
+                return new AuthDingTalkV2Request(config, authStateCache);
             case DINGTALK_ACCOUNT:
                 return new AuthDingTalkAccountRequest(config, authStateCache);
             case BAIDU:
@@ -204,10 +206,6 @@ public class AuthRequestFactory {
                 return new AuthWeChatOpenRequest(config, authStateCache);
             case WECHAT_MP:
                 return new AuthWeChatMpRequest(config, authStateCache);
-            case WECHAT_ENTERPRISE:
-                return new AuthWeChatEnterpriseQrcodeRequest(config, authStateCache);
-            case WECHAT_ENTERPRISE_WEB:
-                return new AuthWeChatEnterpriseWebRequest(config, authStateCache);
             case TAOBAO:
                 return new AuthTaobaoRequest(config, authStateCache);
             case GOOGLE:
@@ -220,6 +218,9 @@ public class AuthRequestFactory {
                 return new AuthLinkedinRequest(config, authStateCache);
             case MICROSOFT:
                 return new AuthMicrosoftRequest(config, authStateCache);
+            case MICROSOFT_CN:
+                return new AuthMicrosoftCnRequest(config, authStateCache);
+
             case MI:
                 return new AuthMiRequest(config, authStateCache);
             case TOUTIAO:
@@ -234,15 +235,25 @@ public class AuthRequestFactory {
                 return new AuthStackOverflowRequest(config, authStateCache);
             case HUAWEI:
                 return new AuthHuaweiRequest(config, authStateCache);
-            case GITLAB:
-                return new AuthGitlabRequest(config, authStateCache);
+            case HUAWEI_V3:
+                return new AuthHuaweiV3Request(config, authStateCache);
+            case WECHAT_ENTERPRISE:
+                return new AuthWeChatEnterpriseQrcodeRequest(config, authStateCache);
+            case WECHAT_ENTERPRISE_V2:
+                return new AuthWeChatEnterpriseQrcodeV2Request(config, authStateCache);
+            case WECHAT_ENTERPRISE_QRCODE_THIRD:
+                return new AuthWeChatEnterpriseThirdQrcodeRequest(config, authStateCache);
+            case WECHAT_ENTERPRISE_WEB:
+                return new AuthWeChatEnterpriseWebRequest(config, authStateCache);
             case KUJIALE:
                 return new AuthKujialeRequest(config, authStateCache);
-            case ELEME:
-                return new AuthElemeRequest(config, authStateCache);
+            case GITLAB:
+                return new AuthGitlabRequest(config, authStateCache);
             case MEITUAN:
                 return new AuthMeituanRequest(config, authStateCache);
-            case TWITTER:
+            case ELEME:
+                return new AuthElemeRequest(config, authStateCache);
+           case TWITTER:
                 return new AuthTwitterRequest(config, authStateCache);
             case FEISHU:
                 return new AuthFeishuRequest(config, authStateCache);
@@ -260,6 +271,22 @@ public class AuthRequestFactory {
                 return new AuthLineRequest(config, authStateCache);
             case OKTA:
                 return new AuthOktaRequest(config, authStateCache);
+            case PROGINN:
+                return new AuthProginnRequest(config,authStateCache);
+            case AFDIAN:
+                return new AuthAfDianRequest(config,authStateCache);
+            case APPLE:
+                return new AuthAppleRequest(config,authStateCache);
+            case FIGMA:
+                return new AuthFigmaRequest(config,authStateCache);
+            case WECHAT_MINI_PROGRAM:
+                config.setIgnoreCheckRedirectUri(true);
+                config.setIgnoreCheckState(true);
+                return new AuthWechatMiniProgramRequest(config, authStateCache);
+            case QQ_MINI_PROGRAM:
+                config.setIgnoreCheckRedirectUri(true);
+                config.setIgnoreCheckState(true);
+                return new AuthQQMiniProgramRequest(config, authStateCache);
             default:
                 return null;
         }
